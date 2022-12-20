@@ -6,6 +6,7 @@ import { EventContext } from '../../Context/Context'
 
 const FunctionCard = ({id, image, title, description, img}) => {
   const {userData} = useContext(EventContext)
+  console.log(img)
   return (
    <div className=' p-3 shadow rounded d-flex flex-column gap-2 ' style={{width:'300px', height:'auto'}}>
     <img className='h-75 w-100 rounded' src={img} style={{objectFit:'cover'}}/>

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { EventContext } from '../../Context/Context'
+import {toast} from 'react-hot-toast'
 
 const RegisterForm = () => {
     const [form, setForm] = useState()
@@ -18,11 +19,13 @@ const RegisterForm = () => {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
-            body:JSON.stringify(form)
+            body:JSON.stringify({...form, asientosReservados: []})
           })
           const result = await response.json()
-          setUserData({isLogged:true, result})
-          navigate('/')
+          console.log(result)
+          toast.success('Usuario creado exitosamente!')
+
+          navigate('/login')
           
         }
         //POST logic
@@ -35,8 +38,8 @@ const RegisterForm = () => {
     <input className='form-control' placeholder='Apellido'name='apellido' onChange={e => handleChange(e)}/>
     <input className='form-control' placeholder='Correo electrónico' name='correoElectronico' onChange={e => handleChange(e)}/>
     <input className='form-control' placeholder='Nombre de usuario' name='nombreUsuario' onChange={e => handleChange(e)}/>
-    <input className='form-control' placeholder='Contraseña' name='contrasena' onChange={e => handleChange(e)}/>
-    <input type='submit' className='btn' style={{backgroundColor:'#362E7B'}}/>
+    <input className='form-control' type='password' placeholder='Contraseña' name='contrasena' onChange={e => handleChange(e)}/>
+    <input type='submit' className='btn text-white fw-bold' style={{backgroundColor:'#362E7B'}}/>
     <span>Ya tienes una cuenta? <Link to='/login'>Inicia sesion</Link></span>
     </div>
 </form>
