@@ -8,7 +8,7 @@ const Profile = () => {
     const [loading, setLoading] = useState(true)
     const getUserData = async() => {
         setLoading(true)
-        const response = await fetch(`http://localhost:27017/api/usuarios/${userData._id}`)
+        const response = await fetch(`http://23.23.204.103:27017/api/usuarios/${userData._id}`)
         const result = await response.json()
         console.log(result)
         setReservations(result.asientosReservados)

@@ -12,7 +12,7 @@ const RegisterForm = () => {
     const handleSubmit = async(e) => {
         e.preventDefault()
         if (form.nombre && form.apellido && form.correoElectronico && form.nombreUsuario && form.contrasena) {
-          const response = await fetch('http://localhost:27017/api/usuarios/registrar', {
+          const response = await fetch('http://23.23.204.103:27017/api/usuarios/registrar', {
             method:'POST',
             headers: {
               'Accept': 'application/json',
