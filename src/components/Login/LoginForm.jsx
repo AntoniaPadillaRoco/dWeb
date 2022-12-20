@@ -14,7 +14,7 @@ const LoginForm = () => {
     e.preventDefault()
     if(formState.correoElectronico && formState.contrasena) {
 
-      const response = await fetch('http://23.23.204.103:27017/API/usuarios/inicioSesion', {
+      const response = await fetch('http://23.23.204.103/API/usuarios/inicioSesion', {
         method:'POST',
         headers: {
           'Accept': 'application/json',

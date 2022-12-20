@@ -15,7 +15,7 @@ const SeatsReservation = () => {
     const {userData} = useContext(EventContext)
     const fetchEventData = async() => {
         setLoading(true)
-        const response = await fetch(`http://23.23.204.103:27017/API/eventos/${title}`)
+        const response = await fetch(`http://23.23.204.103/API/eventos/${title}`)
         const result = await response.json()
         setEventInfo(result[0])
         console.log(result[0])
@@ -39,7 +39,7 @@ const SeatsReservation = () => {
             asientosEvento: prevSeats
         }
         console.log(data)
-        const response = await fetch('http://23.23.204.103:27017/API/reservas', {
+        const response = await fetch('http://23.23.204.103/API/reservas', {
             method:'PUT',
             headers: {
                 'Accept': 'application/json',

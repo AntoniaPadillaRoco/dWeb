@@ -7,7 +7,7 @@ const Reservation = () => {
     const [loading, setLoading] = useState(true)
     const fetchEventData = async() => {
         setLoading(true)
-        const response = await fetch(`http://23.23.204.103:27017/API/eventos/${title}`)
+        const response = await fetch(`http://23.23.204.103/API/eventos/${title}`)
         const result = await response.json()
         setEventInfo(result[0])
         console.log(result[0])

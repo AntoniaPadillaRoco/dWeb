@@ -9,7 +9,7 @@ const Home = () => {
     const [loading, setLoading] = useState() 
   const fetchEventsData = async() => {
     setLoading(true)
-      const response = await fetch('http://23.23.204.103:27017/API/eventos')
+      const response = await fetch('http://23.23.204.103/API/eventos')
       const result = await response.json()
       console.log(result)
       setEventsData(result)
