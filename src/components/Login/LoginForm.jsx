@@ -1,8 +1,11 @@
 import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ContextProvider, { EventContext } from '../../Context/Context'
+import Cookies from "universal-cookie";
+
 
 const LoginForm = () => {
+  const cookies = new Cookies()
   const [formState, setFormState] = useState({})
   const {setUserData, userData} = useContext(EventContext)
   const [error, setError] = useState(false)
@@ -13,8 +16,7 @@ const LoginForm = () => {
   const onSubmit = async(e) => {
     e.preventDefault()
     if(formState.correoElectronico && formState.contrasena) {
-
-      const response = await fetch('http://23.23.204.103:27017/API/usuarios/inicioSesion', {
+      const response = await fetch('http://23.23.204.103/API/usuarios/inicioSesion', {
         method:'POST',
         headers: {
           'Accept': 'application/json',
@@ -24,7 +26,10 @@ const LoginForm = () => {
       })
       const result = await response.json()
       if(result.data.length > 0) {
-        setUserData({isLogged:true, ...result.data[0]})
+        if (cookies.get('cookieToken') === undefined) {
+          cookies.set('cookieToken', result.token, {maxAge: 999999})
+        }
+        setUserData({isLogged: true, data: result.data[0]})
         return navigate('/')
       }
       return setError(true) 

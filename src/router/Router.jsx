@@ -18,17 +18,10 @@ const Router = () => {
             <Route path='/login' element={<Login/>}/>
             <Route path='/register' element={<Register/>}/>
             <Route path='/' element={<Home/>}/>
-            {userData.isLogged && (
-              <>
             <Route path='/reservation/:title' element={<Reservation/>}/>
             <Route path='/reservation/:title/:date' element={<SeatsReservation/>}/>
             <Route path='/perfil' element={<Profile/>}/>
-            </>
-            )}
             <Route path='*' element={<ErrorPage/>}/>
-
-
-
         </Route>
     </Routes>
   )

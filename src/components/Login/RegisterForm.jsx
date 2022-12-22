@@ -13,7 +13,7 @@ const RegisterForm = () => {
     const handleSubmit = async(e) => {
         e.preventDefault()
         if (form.nombre && form.apellido && form.correoElectronico && form.nombreUsuario && form.contrasena) {
-          const response = await fetch('http://23.23.204.103:27017/API/usuarios/registrar', {
+          const response = await fetch('http://23.23.204.103/API/usuarios/registrar', {
             method:'POST',
             headers: {
               'Accept': 'application/json',
@@ -24,7 +24,6 @@ const RegisterForm = () => {
           const result = await response.json()
           console.log(result)
           toast.success('Usuario creado exitosamente!')
-
           navigate('/login')
           
         }

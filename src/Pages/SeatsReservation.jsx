@@ -12,10 +12,11 @@ const SeatsReservation = () => {
     const [canClick, setCanClick] = useState(false)
     const [eventInfo, setEventInfo] = useState()
     const [bookedSeats, setBookedSeats] = useState([])
-    const {userData} = useContext(EventContext)
+    const {setUserData, userData} = useContext(EventContext)
+    const [cookiesChecked, setCookiesChecked] = useState(false)
     const fetchEventData = async() => {
         setLoading(true)
-        const response = await fetch(`http://23.23.204.103:27017/API/eventos/${title}`)
+        const response = await fetch(`http://23.23.204.103/API/eventos/${title}`)
         const result = await response.json()
         setEventInfo(result[0])
         console.log(result[0])
@@ -31,7 +32,7 @@ const SeatsReservation = () => {
         console.log(prevSeats)
         
         const data = {
-            idUsuario: userData._id,
+            idUsuario: userData.data._id,
             asientosUsuario: bookedSeats,
             tituloEvento:title,
             fechaEvento:eventInfo.fechas[date].fecha,
@@ -39,7 +40,7 @@ const SeatsReservation = () => {
             asientosEvento: prevSeats
         }
         console.log(data)
-        const response = await fetch('http://23.23.204.103:27017/API/reservas', {
+        const response = await fetch('http://23.23.204.103/API/reservas', {
             method:'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -55,7 +56,27 @@ const SeatsReservation = () => {
     }
     useEffect(() => {
         fetchEventData()
+        if (!userData.isLogged) {
+            fetch('http://23.23.204.103/API/', {
+                method: "POST",
+                credentials: 'include',
+                headers: {
+                    'Content-type': 'application/json',
+                }
+            })
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+                    if (result.message !== "Token no encontrado") {
+                        setUserData({isLogged: true, data: result})
+                        setCookiesChecked(true)
+                    }
+                    else navigate('/login')
+                })
+        }
+        else setCookiesChecked(true)
     }, [])
+
     useEffect(() =>{
         console.log(bookedSeats)
         if(bookedSeats.length > 0) {
@@ -66,7 +87,7 @@ const SeatsReservation = () => {
         }
     }, [bookedSeats])
   return (
-    <div className='w-50 h-100  d-flex flex-column align-items-center justify-content-center gap-5'>
+    cookiesChecked && <div className='w-50 h-100  d-flex flex-column align-items-center justify-content-center gap-5'>
         {loading && <div className='spinner-border text-primary'/>}
         {!loading && (
             <> 
